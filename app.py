@@ -56,23 +56,36 @@ def render_page():
 
     churn = Image.open('data/churn.png')
     ratio_churn = Image.open('data/ratio_churn.png')
-    tenure = Image.open('data/tenure.png')
     socdem = Image.open('data/socdem.png')
     tenure_cohorts = Image.open('data/tenure_cohorts.png')
     cohortscontract = Image.open('data/cohortscontract.png')
     importances = Image.open('data/importances.png')
 
     st.title('Churn Value analysis for a telecommunication company')
-    st.subheader("Explore customers, "
-                 "predict probabilities of churn for a customer with a number of  characteristics,"
-                 " evaluate the importance of features.")
-    st.write('**Data**: The Telco customer churn data set contains information about a company that provided phone and Internet services  in California.'
+    left_co, right_co = st.columns(2)
+    with left_co:
+        st.write('')
+        st.write('')
+        st.subheader("Explore customers, "
+                     "predict probabilities of churn for a customer with a number of  characteristics,"
+                     " evaluate the importance of features.")
+        st.write('')
+        st.write('**Data**: The Telco customer churn data set contains information about a company that provided phone and Internet services  in California.'
              ' It indicates which customers have left, stayed, or signed up for their service.')
-    st.image(churn)
+    with right_co:
+        st.image(churn, width=500)
+
+    st.divider()
 
     tab1, tab2, tab3 = st.tabs([':mag: Explore', ':mage: Predict', ':vertical_traffic_light: Evaluate'])
 
     with tab1:
+        st.image(ratio_churn)
+        st.write("26,5%  of customers churned and 73,5% stayed.")
+        st.write("Our variable 'Churn Value' is imbalanced.  It means that we need to use the class weights in models "
+                 "as one of possible ways to deal with that problem.")
+        st.divider()
+
         st.write("### Let's have a look at our customers")
         st.image(socdem)
         st.write("Gender and marital status characteristics are evenly spread.")
@@ -80,37 +93,17 @@ def render_page():
         st.write("1/5 of them have dependents (children, parents, grandparents, etc.). ")
         st.divider()
 
-        st.image(ratio_churn)
-        st.write("26,5%  of customers churned and 73,5% stayed.")
-        st.write("Our variable 'Churn Value' is imbalanced.  It means that we need to use the class weights in models "
-                 "as one of possible ways to deal with that problem.")
-        st.divider()
-
-        st.image(tenure)
-        st.write('Tenure of customers varies from 1 month to 72 months.')
-        st.write('In average our customers spend 2,5 years with us (32.39 months).')
-        st.divider()
-
-        st.write('There are too many tenure groups. We divide them into 6 cohorts: ')
-        st.write('- 0-12 months;')
-        st.write('- 13-24 months;')
-        st.write('- 25-36 months;')
-        st.write('- 37-48 months;')
-        st.write('- 49-60 months;')
-        st.write('- 61 + months.;')
-        st.divider()
-
         st.image(tenure_cohorts)
-        st.write('We see that there are less customers who churned among those who joined us more than 1 year ago. '
+        st.write('There are less customers who churned among those who joined us more than 1 year ago. '
                  'And more customers who churned among those who joined 0-12 month ago.')
         st.divider()
 
         st.image(cohortscontract)
-        st.write('We see that customers with a Month to Month contract churn more among all the cohorts. ')
+        st.write('Customers with a Month to Month contract churn more among all the cohorts. ')
         st.write(' Among customers with One and Two years contract number of those who churn is relatively low. '
         'Most of the customers who decided to churn own the Month to Month contract type.')
-        st.write("To discover a Churn prediction model for customers with "
-                 " [Month to Month contract type, click here](https://churn-prediction-telco-monthly.streamlit.app)")
+        st.write("To discover a Churn prediction model for customers with Month to Month contract type, "
+                 " [click here](https://churn-prediction-telco-monthly.streamlit.app)")
         st.divider()
 
     with tab2:
