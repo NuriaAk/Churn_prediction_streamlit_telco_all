@@ -102,8 +102,28 @@ def render_page():
         st.write('Customers with a Month to Month contract churn more among all the cohorts. ')
         st.write(' Among customers with One and Two years contract number of those who churn is relatively low. '
         'Most of the customers who decided to churn own the Month to Month contract type.')
-        st.write("To discover a Churn prediction model for customers with Month to Month contract type, "
-                 " [click here](https://churn-prediction-telco-monthly.streamlit.app)")
+
+
+        st.write("To discover a Churn prediction model for customers with Month to Month contract type: ")
+
+        def redirect_button(url: str, text: str = None, color="#FD504D"):
+            st.markdown(
+            f"""
+            <a href="{url}" target="_self">
+                <div style="
+                    display: inline-block;
+                    padding: 0.5em 1em;
+                    color: #FFFFFF;
+                    background-color: {color};
+                    border-radius: 3px;
+                    text-decoration: none;">
+                    {text}
+                </div>
+            </a>
+            """,
+            unsafe_allow_html=True
+            )
+        redirect_button("https://churn-prediction-telco-monthly.streamlit.app","click this button")
         st.divider()
 
     with tab2:
